@@ -1,9 +1,11 @@
 from flask import Flask, request, render_template, jsonify
+from flask_cors import CORS
 from youtube_transcript_api import YouTubeTranscriptApi
 from youtube_transcript_api._errors import TranscriptsDisabled, NoTranscriptFound
 from urllib.parse import urlparse, parse_qs
 
 app = Flask(__name__)
+CORS(app)
 
 def extract_video_id(url):
     """
