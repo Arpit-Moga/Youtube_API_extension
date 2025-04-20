@@ -80,11 +80,9 @@ def api_transcript():
             return jsonify({'error': 'Invalid YouTube URL'}), 400
         
         transcript = YouTubeTranscriptApi.get_transcript(video_id)
-        return jsonify({
-            #'video_id': video_id,
-            #'transcript': transcript
-            'text': " ".join([segment['text'] for segment in transcript])
-        })
+        result = jsonify({'text': " ".join([segment['text'] for segment in transcript])})
+        result.headers.add('Access-Control-Allow-Origin', '*')
+        return result
         
     except TranscriptsDisabled:
         return jsonify({'error': 'Transcripts are disabled for this video'}), 400
